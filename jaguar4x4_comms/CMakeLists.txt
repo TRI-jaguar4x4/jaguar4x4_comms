@@ -11,6 +11,7 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 endif()
 
 find_package(ament_cmake_ros REQUIRED)
+find_package(jaguar4x4_comms_msgs REQUIRED)
 
 include_directories(include)
 
@@ -20,6 +21,8 @@ add_library(jaguar4x4_comms SHARED
   src/Utils.cpp
 )
 
+ament_target_dependencies(jaguar4x4_comms jaguar4x4_comms_msgs)
+
 install(TARGETS
   jaguar4x4_comms
   ARCHIVE DESTINATION lib
@@ -27,7 +30,7 @@ install(TARGETS
   RUNTIME DESTINATION bin
 )
 
-install(DIRECTORY include/${PROJECT_NAME}
+install(DIRECTORY include/${PROJECT_NAME}/
   DESTINATION include/${PROJECT_NAME}
 )
 

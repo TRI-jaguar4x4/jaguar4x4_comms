@@ -4,6 +4,8 @@
 #include <chrono>
 #include <utility>
 
+#include <jaguar4x4_comms_msgs/msg/motor_board.hpp>
+
 #include "AbstractCommunication.h"
 
 class AbstractMotorMsg {
@@ -222,3 +224,5 @@ class MotorEncPosDiffMsg final : public AbstractMotorMsg {
 };
 
 std::unique_ptr<AbstractMotorMsg> parseMotorMessage(const std::string& msg);
+
+void abstractMotorToROS(AbstractMotorMsg* msg, jaguar4x4_comms_msgs::msg::MotorBoard* motor_ref);
