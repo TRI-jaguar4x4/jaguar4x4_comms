@@ -414,3 +414,35 @@ void abstractMotorToROS(AbstractMotorMsg* msg, jaguar4x4_comms_msgs::msg::MotorB
     break;
   }
 }
+
+void copyMotorBoardMessage(jaguar4x4_comms_msgs::msg::MotorBoard* to,
+                           jaguar4x4_comms_msgs::msg::MotorBoard* from)
+{
+  to->amp_1 = from->amp_1;
+  to->amp_2 = from->amp_2;
+  to->motor_temp_1 = from->motor_temp_1;
+  to->motor_temp_2 = from->motor_temp_2;
+  to->encoder_pos_1 = from->encoder_pos_1;
+  to->encoder_pos_2 = from->encoder_pos_2;
+  to->encoder_diff_1 = from->encoder_diff_1;
+  to->encoder_diff_2 = from->encoder_diff_2;
+  to->digital_input = from->digital_input;
+  to->digital_output = from->digital_output;
+  to->motor_power_1 = from->motor_power_1;
+  to->motor_power_2 = from->motor_power_2;
+  to->encoder_vel_1 = from->encoder_vel_1;
+  to->encoder_vel_2 = from->encoder_vel_2;
+  to->board_temp_1 = from->board_temp_1;
+  to->board_temp_2 = from->board_temp_2;
+  to->volt_main = from->volt_main;
+  to->volt_12v = from->volt_12v;
+  to->volt_5v = from->volt_5v;
+  to->motor_control_mode_1 = from->motor_control_mode_1;
+  to->motor_control_mode_2 = from->motor_control_mode_2;
+  to->overheat = from->overheat;
+  to->overvoltage = from->overvoltage;
+  to->undervoltage = from->undervoltage;
+  to->e_short = from->e_short;
+  to->estop = from->estop;
+  to->last_cmd_ack = from->last_cmd_ack;
+}
