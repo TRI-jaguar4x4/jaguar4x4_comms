@@ -82,6 +82,11 @@ void Communication::sendCommand(const std::string& cmd)
   }
 }
 
+static uint64_t timespec_to_usecs(struct timespec *ts)
+{
+  return ts->tv_sec * 1e6 + ts->tv_nsec / 1e3;
+}
+
 std::string Communication::recvMessage(const std::string& boundary,
                                        int timeout_msec)
 {
@@ -104,12 +109,24 @@ std::string Communication::recvMessage(const std::string& boundary,
   FD_ZERO(&readfds);
   FD_SET(fd_, &readfds);
 
-  struct timeval tv;
-  tv.tv_sec = 0;
-  tv.tv_usec = timeout_msec * 1000;
+  struct timespec start_ts;
+  clock_gettime(CLOCK_MONOTONIC, &start_ts);
+  uint64_t start_usecs = timespec_to_usecs(&start_ts);
 
-  bool done = false;
-  while (!done) {
+  long usecs_left = timeout_msec * 1000;
+
+  while (usecs_left > 0) {
+    struct timespec current_ts;
+    clock_gettime(CLOCK_MONOTONIC, &current_ts);
+
+    uint64_t current_usecs = timespec_to_usecs(&current_ts);
+    usecs_left -= (current_usecs - start_usecs);
+    start_usecs = current_usecs;
+
+    struct timeval tv;
+    tv.tv_sec = 0;
+    tv.tv_usec = usecs_left;
+
     int retval = select(fd_ + 1, &readfds, NULL, NULL, &tv);
     if (retval < 0) {
       if (retval == EINTR) {
@@ -119,7 +136,7 @@ std::string Communication::recvMessage(const std::string& boundary,
                                + std::string(::strerror(errno)));
     } else if (retval == 0) {
       // didn't receive a command, just return an empty string
-      return "";
+      break;
     }
 
     if (!FD_ISSET(fd_, &readfds)) {
@@ -145,7 +162,7 @@ std::string Communication::recvMessage(const std::string& boundary,
                                     // stupid expensive, be smarter
       rcv_str = partial_buffer_.substr(0, pos);
       partial_buffer_ = partial_buffer_.substr(pos + boundary.length());
-      done = true;
+      break;
     }
   }
 
