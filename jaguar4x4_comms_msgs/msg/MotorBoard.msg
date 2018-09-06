@@ -1,4 +1,3 @@
-# Copyright 2018 Toyota Research Institute.  All rights reserved.
 uint8  MOTOR_CONTROL_MODE_OPEN_LOOP = 0
 uint8  MOTOR_CONTROL_MODE_CLOSED_SPEED = 1
 uint8  MOTOR_CONTROL_MODE_POSITION = 2
