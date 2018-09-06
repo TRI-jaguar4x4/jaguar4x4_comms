@@ -90,8 +90,6 @@ static std::unique_ptr<AbstractMotorMsg> parseAndReturnMotorAmpMsg(const std::st
                                          str_to_d(sm[2]) / 10.0);
   }
 
-  std::cerr << "Motor Amp Msg failed to parse: '" << msg << "' (" << dumpHex(msg) << ")" << std::endl;
-
   // If we got here, it failed to parse; just return empty
   return std::unique_ptr<AbstractMotorMsg>(nullptr);
 }
@@ -104,8 +102,6 @@ static std::unique_ptr<AbstractMotorMsg> parseAndReturnMotorEncPosMsg(const std:
     return std::make_unique<MotorEncPosMsg>(std::stol(sm[1]),
                                             std::stol(sm[2]));
   }
-
-  std::cerr << "Motor EncPos Msg failed to parse: '" << msg << "' (" << dumpHex(msg) << ")" << std::endl;
 
   // If we got here, it failed to parse; just return empty
   return std::unique_ptr<AbstractMotorMsg>(nullptr);
@@ -120,8 +116,6 @@ static std::unique_ptr<AbstractMotorMsg> parseAndReturnMotorEncPosDiffMsg(const 
                                                 std::stol(sm[2]));
   }
 
-  std::cerr << "Motor EncPosDiff Msg failed to parse: '" << msg << "' (" << dumpHex(msg) << ")" << std::endl;
-
   // If we got here, it failed to parse; just return empty
   return std::unique_ptr<AbstractMotorMsg>(nullptr);
 }
@@ -134,8 +128,6 @@ static std::unique_ptr<AbstractMotorMsg> parseAndReturnDigitalInputMsg(const std
     return std::make_unique<MotorDigitalInputMsg>(std::stoul(sm[1]));
   }
 
-  std::cerr << "Motor Mode Msg failed to parse: '" << msg << "' (" << dumpHex(msg) << ")" << std::endl;
-
   // If we got here, it failed to parse; just return empty
   return std::unique_ptr<AbstractMotorMsg>(nullptr);
 }
@@ -147,8 +139,6 @@ static std::unique_ptr<AbstractMotorMsg> parseAndReturnDigitalOutputMsg(const st
   if (std::regex_match(msg, sm, std::regex("DO=(-?[0-9]*?)$"))) {
     return std::make_unique<MotorDigitalOutputMsg>(std::stoul(sm[1]));
   }
-
-  std::cerr << "Motor Mode Msg failed to parse: '" << msg << "' (" << dumpHex(msg) << ")" << std::endl;
 
   // If we got here, it failed to parse; just return empty
   return std::unique_ptr<AbstractMotorMsg>(nullptr);
@@ -163,8 +153,6 @@ static std::unique_ptr<AbstractMotorMsg> parseAndReturnMotorPowerMsg(const std::
                                            std::stol(sm[2]));
   }
 
-  std::cerr << "Motor Power Msg failed to parse: '" << msg << "' (" << dumpHex(msg) << ")" << std::endl;
-
   // If we got here, it failed to parse; just return empty
   return std::unique_ptr<AbstractMotorMsg>(nullptr);
 }
@@ -178,8 +166,6 @@ static std::unique_ptr<AbstractMotorMsg> parseAndReturnMotorEncVelMsg(const std:
                                             std::stol(sm[2]));
   }
 
-  std::cerr << "Motor EncVel Msg failed to parse: '" << msg << "' (" << dumpHex(msg) << ")" << std::endl;
-
   // If we got here, it failed to parse; just return empty
   return std::unique_ptr<AbstractMotorMsg>(nullptr);
 }
@@ -192,8 +178,6 @@ static std::unique_ptr<AbstractMotorMsg> parseAndReturnMotorBoardTempMsg(const s
       return std::make_unique<MotorBoardTempMsg>(str_to_d(sm[1]),
                                                  str_to_d(sm[2]));
   }
-
-  std::cerr << "Motor BoardTemp Msg failed to parse: '" << msg << "' (" << dumpHex(msg) << ")" << std::endl;
 
   // If we got here, it failed to parse; just return empty
   return std::unique_ptr<AbstractMotorMsg>(nullptr);
@@ -210,8 +194,6 @@ static std::unique_ptr<AbstractMotorMsg> parseAndReturnMotorVoltageMsg(const std
                                              str_to_d(sm[3])/1000.0);
   }
 
-  std::cerr << "Motor Voltage Msg failed to parse: '" << msg << "' (" << dumpHex(msg) << ")" << std::endl;
-
   // If we got here, it failed to parse; just return empty
   return std::unique_ptr<AbstractMotorMsg>(nullptr);
 }
@@ -225,8 +207,6 @@ static std::unique_ptr<AbstractMotorMsg> parseAndReturnMotorTempMsg(const std::s
       return std::make_unique<MotorTempMsg>(std::stoul(sm[3]),
                                             std::stoul(sm[4]));
   }
-
-  std::cerr << "Motor Temp Msg failed to parse: '" << msg << "' (" << dumpHex(msg) << ")" << std::endl;
 
   // If we got here, it failed to parse; just return empty
   return std::unique_ptr<AbstractMotorMsg>(nullptr);

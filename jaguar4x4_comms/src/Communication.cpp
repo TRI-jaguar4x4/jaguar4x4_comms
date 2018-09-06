@@ -66,8 +66,6 @@ void Communication::connect(const std::string& ip, uint16_t port)
     throw std::runtime_error("Failed to connect with robot. IP address "
                              + ip + " Port: " + std::to_string(port));
   }
-
-  std::cerr << "Connected to " << ip << std::endl;
 }
 
 void Communication::sendCommand(const std::string& cmd)
